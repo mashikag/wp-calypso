@@ -604,7 +604,7 @@ __metadata:
     react-query: ^3.32.1
     react-redux: ^7.2.6
     redux: ^4.1.2
-    redux-thunk: ^2.3.0
+    redux-thunk: ^2.4.1
     webpack: ^5.68.0
     webpack-bundle-analyzer: ^4.5.0
     webpack-dev-server: ^4.7.3
@@ -654,7 +654,7 @@ __metadata:
     react-query: ^3.32.1
     react-redux: ^7.2.6
     redux: ^4.1.2
-    redux-thunk: ^2.3.0
+    redux-thunk: ^2.4.1
     webpack: ^5.68.0
     webpack-bundle-analyzer: ^4.5.0
     webpack-dev-server: ^4.7.3
@@ -957,7 +957,7 @@ __metadata:
     react-dom: ^17.0.2
     react-redux: ^7.2.6
     redux: ^4.1.2
-    redux-thunk: ^2.3.0
+    redux-thunk: ^2.4.1
     webpack: ^5.68.0
     webpack-bundle-analyzer: ^4.5.0
     webpack-dev-server: ^4.7.3
@@ -1218,7 +1218,7 @@ __metadata:
     "@wordpress/warning": ^2.2.2
     lodash: ^4.17.21
     redux: ^4.1.2
-    redux-thunk: ^2.3.0
+    redux-thunk: ^2.4.1
     tslib: ^2.3.0
     typescript: ^4.5.5
   languageName: unknown
@@ -12959,7 +12959,7 @@ __metadata:
     redux: ^4.1.2
     redux-dynamic-middlewares: ^2.0.0
     redux-mock-store: ^1.5.4
-    redux-thunk: ^2.3.0
+    redux-thunk: ^2.4.1
     regenerator-runtime: ^0.13.9
     sinon: ^12.0.1
     social-logos: ^2.4.0
@@ -31531,10 +31531,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"redux-thunk@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "redux-thunk@npm:2.3.0"
-  checksum: fbf342e56809240af5f41257eee0dbba1b8165b611a1dd96d6d2831f84046e30f037a7e90cbff5636cd6e053d53237c4ed3287403f2c6d28fa1ad26543d7a016
+"redux-thunk@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "redux-thunk@npm:2.4.1"
+  peerDependencies:
+    redux: ^4
+  checksum: 1127090b488c6b368397ed885415553735433b2971bd7d7aee77da398bddcac1c6dbddb0ebef1761d9c2bd59e610877824fad432ade5a4f75132e5bb37387ee7
   languageName: node
   linkType: hard
 
