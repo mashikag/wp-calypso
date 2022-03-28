@@ -21,6 +21,7 @@ export const siteSetupFlow: Flow = {
 			'bloggerStartingPoint',
 			'courses',
 			'storeFeatures',
+			'storeAddress',
 		];
 	},
 
@@ -32,6 +33,8 @@ export const siteSetupFlow: Flow = {
 
 		function submit( providedDependencies: ProvidedDependencies = {}, ...params: string[] ) {
 			recordSubmitStep( providedDependencies, intent, currentStep );
+
+			console.log( 'submit', { currentStep }, { intent }, { providedDependencies }, { params } );
 
 			switch ( currentStep ) {
 				case 'options': {
@@ -103,14 +106,15 @@ export const siteSetupFlow: Flow = {
 				case 'storeFeatures': {
 					const storeType = params[ 0 ];
 					if ( storeType === 'power' ) {
-						const args = new URLSearchParams();
-						args.append( 'back_to', `/start/setup-site/store-features?siteSlug=${ siteSlug }` );
-						args.append( 'siteSlug', siteSlug as string );
-						return redirect( `/start/woocommerce-install?${ args.toString() }` );
+						return navigate( 'storeAddress' );
 					} else if ( storeType === 'simple' ) {
 						return navigate( 'designSetup' );
 					}
 					return navigate( 'bloggerStartingPoint' );
+				}
+
+				case 'storeAddress': {
+					return navigate( 'storeAddress' );
 				}
 
 				case 'courses': {
@@ -126,6 +130,9 @@ export const siteSetupFlow: Flow = {
 
 				case 'storeFeatures':
 					return navigate( 'options' );
+
+				case 'storeAddress':
+					return navigate( 'storeFeatures' );
 
 				case 'courses':
 					return navigate( 'bloggerStartingPoint' );
