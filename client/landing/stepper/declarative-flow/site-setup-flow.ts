@@ -21,6 +21,7 @@ export const siteSetupFlow: Flow = {
 			'bloggerStartingPoint',
 			'courses',
 			'storeFeatures',
+			'storeAddress',
 		];
 	},
 
@@ -32,6 +33,8 @@ export const siteSetupFlow: Flow = {
 
 		function submit( providedDependencies: ProvidedDependencies = {}, ...params: string[] ) {
 			recordSubmitStep( providedDependencies, intent, currentStep );
+
+			console.log( 'submit', { currentStep }, { intent }, { providedDependencies }, { params } );
 
 			switch ( currentStep ) {
 				case 'options': {
@@ -111,6 +114,10 @@ export const siteSetupFlow: Flow = {
 						return navigate( 'designSetup' );
 					}
 					return navigate( 'bloggerStartingPoint' );
+				}
+
+				case 'storeAddress': {
+					return navigate( 'storeAddress' );
 				}
 
 				case 'courses': {
