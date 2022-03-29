@@ -31,7 +31,6 @@ export const siteSetupFlow: Flow = {
 		const startingPoint = useSelect( ( select ) => select( ONBOARD_STORE ).getStartingPoint() );
 		const siteSlug = useSiteSlugParam();
 		const { FSEActive } = useFSEStatus();
-		console.log( 'Hey2!', { currentStep } );
 
 		// TODO - dummy data?
 		if ( ! intent ) {
@@ -39,10 +38,7 @@ export const siteSetupFlow: Flow = {
 		}
 
 		function submit( providedDependencies: ProvidedDependencies = {}, ...params: string[] ) {
-			console.log( 'submit' );
 			recordSubmitStep( providedDependencies, intent, currentStep );
-
-			console.log( 'submit', { currentStep }, { intent }, { providedDependencies }, { params } );
 
 			switch ( currentStep ) {
 				case 'options': {
@@ -142,8 +138,6 @@ export const siteSetupFlow: Flow = {
 		}
 
 		const goBack = () => {
-			console.log( 'goBack', currentStep );
-
 			switch ( currentStep ) {
 				case 'bloggerStartingPoint':
 					return navigate( 'options' );
@@ -173,8 +167,6 @@ export const siteSetupFlow: Flow = {
 		};
 
 		const goNext = () => {
-			console.log( 'goNext', currentStep );
-
 			switch ( currentStep ) {
 				case 'options':
 					if ( intent === 'sell' ) {
@@ -188,7 +180,6 @@ export const siteSetupFlow: Flow = {
 		};
 
 		const goToStep = ( step: StepPath ) => {
-			console.log( 'gotostep', { step } );
 			navigate( step );
 		};
 
