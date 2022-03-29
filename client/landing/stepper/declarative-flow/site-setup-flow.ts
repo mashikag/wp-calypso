@@ -26,10 +26,15 @@ export const siteSetupFlow: Flow = {
 	},
 
 	useStepNavigation( currentStep, navigate ) {
-		const intent = useSelect( ( select ) => select( ONBOARD_STORE ).getIntent() );
+		let intent = useSelect( ( select ) => select( ONBOARD_STORE ).getIntent() );
 		const startingPoint = useSelect( ( select ) => select( ONBOARD_STORE ).getStartingPoint() );
 		const siteSlug = useSiteSlugParam();
 		const { FSEActive } = useFSEStatus();
+
+		// TODO - dummy data?
+		if ( ! intent ) {
+			intent = 'sell';
+		}
 
 		function submit( providedDependencies: ProvidedDependencies = {}, ...params: string[] ) {
 			recordSubmitStep( providedDependencies, intent, currentStep );
@@ -106,10 +111,13 @@ export const siteSetupFlow: Flow = {
 				case 'storeFeatures': {
 					const storeType = params[ 0 ];
 					if ( storeType === 'power' ) {
+						/*
 						const args = new URLSearchParams();
 						args.append( 'back_to', `/start/setup-site/store-features?siteSlug=${ siteSlug }` );
 						args.append( 'siteSlug', siteSlug as string );
 						return redirect( `/start/woocommerce-install?${ args.toString() }` );
+						*/
+						return navigate( 'storeAddress' );
 					} else if ( storeType === 'simple' ) {
 						return navigate( 'designSetup' );
 					}
@@ -127,12 +135,17 @@ export const siteSetupFlow: Flow = {
 		}
 
 		const goBack = () => {
+			console.log( 'goBack', currentStep );
+
 			switch ( currentStep ) {
 				case 'bloggerStartingPoint':
 					return navigate( 'options' );
 
 				case 'storeFeatures':
 					return navigate( 'options' );
+
+				case 'storeAddress':
+					return navigate( 'storeFeatures' );
 
 				case 'courses':
 					return navigate( 'bloggerStartingPoint' );
@@ -153,6 +166,8 @@ export const siteSetupFlow: Flow = {
 		};
 
 		const goNext = () => {
+			console.log( 'goNext', currentStep );
+
 			switch ( currentStep ) {
 				case 'options':
 					if ( intent === 'sell' ) {

@@ -22,7 +22,7 @@ const StoreFeatures: Step = function StartingPointStep( { navigation } ) {
 		components: { br: <br /> },
 	} );
 	const subHeaderText = translate( 'Let’s create a website that suits your needs.' );
-	const siteSlug = useSiteSlugParam();
+	const siteSlug = useSiteSlugParam() || 'fake-site';
 	const site = useSite();
 	const intents = useIntents( siteSlug, site?.plan?.product_slug );
 	const { setStoreType } = useDispatch( ONBOARD_STORE );

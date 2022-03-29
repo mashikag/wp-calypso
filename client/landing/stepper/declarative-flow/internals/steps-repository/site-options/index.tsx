@@ -50,6 +50,9 @@ const SiteOptions: Step = function SiteOptions( { navigation } ) {
 			} );
 
 			submit?.( { siteTitle, tagline } );
+		} else {
+			// TODO - Placeholder since we don't have data yet
+			submit?.( { siteTitle, tagline } );
 		}
 	};
 	const onChange = ( event: React.FormEvent< HTMLInputElement > ) => {
