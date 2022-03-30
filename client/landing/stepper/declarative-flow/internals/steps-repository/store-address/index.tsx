@@ -1,6 +1,7 @@
 import { StepContainer } from '@automattic/onboarding';
 import styled from '@emotion/styled';
 import { ComboboxControl } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
 import { useI18n } from '@wordpress/react-i18n';
 import { ReactElement, useState, useEffect } from 'react';
 import FormattedHeader from 'calypso/components/formatted-header';
@@ -9,6 +10,7 @@ import FormInputValidation from 'calypso/components/forms/form-input-validation'
 import FormLabel from 'calypso/components/forms/form-label';
 import FormInput from 'calypso/components/forms/form-text-input';
 import { useSite } from 'calypso/landing/stepper/hooks/use-site';
+import { ONBOARD_STORE } from 'calypso/landing/stepper/stores';
 import { recordTracksEvent } from 'calypso/lib/analytics/tracks';
 import { ActionSection, StyledNextButton } from 'calypso/signup/steps/woocommerce-install';
 import type { Step } from '../../types';
@@ -26,13 +28,15 @@ const CityZipRow = styled.div`
 
 const StoreAddress: Step = function StartingPointStep( { navigation } ) {
 	const { goBack, goNext, submit } = navigation;
+	const intent = useSelect( ( select ) => select( ONBOARD_STORE ).getIntent() );
+	const storeAddress = useSelect( ( select ) => select( ONBOARD_STORE ).getStoreAddress() );
 	const site = useSite();
 	const { __ } = useI18n();
-	const [ storeAddress1, setStoreAddress1 ] = useState( '' );
-	const [ storeAddress2, setStoreAddress2 ] = useState( '' );
-	const [ storeCity, setStoreCity ] = useState( '' );
-	const [ storePostcode, setStorePostcode ] = useState( '' );
-	const [ storeCountry, setStoreCountry ] = useState( '' );
+	const [ storeAddress1, setStoreAddress1 ] = useState( storeAddress.store_address_1 );
+	const [ storeAddress2, setStoreAddress2 ] = useState( storeAddress.store_address_2 );
+	const [ storeCity, setStoreCity ] = useState( storeAddress.store_city );
+	const [ storePostcode, setStorePostcode ] = useState( storeAddress.store_postcode );
+	const [ storeCountry, setStoreCountry ] = useState( storeAddress.store_country );
 
 	useEffect( () => {
 		if ( site ) {
@@ -65,7 +69,6 @@ const StoreAddress: Step = function StartingPointStep( { navigation } ) {
 	/*************************************************************************************************/
 	// TODO - Dummy values
 	const profileEmail = '';
-	const intent = 'sell';
 	const getProfileEmail = () => {
 		return '';
 	};
