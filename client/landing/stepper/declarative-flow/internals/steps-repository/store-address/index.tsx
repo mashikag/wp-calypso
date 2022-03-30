@@ -1,9 +1,9 @@
 import { StepContainer } from '@automattic/onboarding';
 import styled from '@emotion/styled';
 import { ComboboxControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { useI18n } from '@wordpress/react-i18n';
-import { ReactElement, useState, useEffect } from 'react';
+import { FormEvent, ReactElement, useState } from 'react';
 import FormattedHeader from 'calypso/components/formatted-header';
 import FormFieldset from 'calypso/components/forms/form-fieldset';
 import FormInputValidation from 'calypso/components/forms/form-input-validation';
@@ -38,11 +38,7 @@ const StoreAddress: Step = function StartingPointStep( { navigation } ) {
 	const [ storePostcode, setStorePostcode ] = useState( storeAddress.store_postcode );
 	const [ storeCountry, setStoreCountry ] = useState( storeAddress.store_country );
 
-	useEffect( () => {
-		if ( site ) {
-			// TODO - Try to get existing address values from store
-		}
-	}, [ site ] );
+	const { setStoreAddressValue } = useDispatch( ONBOARD_STORE );
 
 	const onChange = ( event: React.FormEvent< HTMLInputElement > ) => {
 		if ( site ) {
@@ -63,6 +59,26 @@ const StoreAddress: Step = function StartingPointStep( { navigation } ) {
 					setStoreCountry( event.currentTarget.value );
 					break;
 			}
+		}
+	};
+
+	const onSubmit = async ( event: FormEvent ) => {
+		event.preventDefault();
+
+		if ( site ) {
+			await setStoreAddressValue( 'store_address_1', storeAddress1 );
+			await setStoreAddressValue( 'store_address_2', storeAddress2 || '' );
+			await setStoreAddressValue( 'store_city', storeCity );
+			await setStoreAddressValue( 'store_postcode', storePostcode );
+			await setStoreAddressValue( 'store_country', storeCountry );
+
+			submit?.( {
+				storeAddress1,
+				storeAddress2,
+				storeCity,
+				storePostcode,
+				storeCountry,
+			} );
 		}
 	};
 
@@ -94,21 +110,7 @@ const StoreAddress: Step = function StartingPointStep( { navigation } ) {
 	const getContent = () => {
 		return (
 			<>
-				<form
-					onSubmit={ ( e ) => {
-						e.preventDefault();
-
-						if ( site ) {
-							submit?.( {
-								storeAddress1,
-								storeAddress2,
-								storeCity,
-								storePostcode,
-								storeCountry,
-							} );
-						}
-					} }
-				>
+				<form onSubmit={ onSubmit }>
 					<FormFieldset>
 						<FormLabel htmlFor="store_address_1">{ __( 'Address line 1' ) }</FormLabel>
 						<FormInput
