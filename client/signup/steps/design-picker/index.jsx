@@ -2,7 +2,6 @@ import { isEnabled } from '@automattic/calypso-config';
 import { planHasFeature, FEATURE_PREMIUM_THEMES, PLAN_PREMIUM } from '@automattic/calypso-products';
 import { Button } from '@automattic/components';
 import DesignPicker, {
-	FeaturedPicksButtons,
 	PremiumBadge,
 	isBlankCanvasDesign,
 	getDesignUrl,
@@ -268,9 +267,6 @@ export default function DesignPickerStep( props ) {
 	function renderCategoriesFooter() {
 		return (
 			<>
-				{ useFeaturedPicksButtons && (
-					<FeaturedPicksButtons designs={ featuredPicksDesigns } onSelect={ pickDesign } />
-				) }
 				{ showLetUsChoose && (
 					<LetUsChoose flowName={ props.flowName } designs={ designs } onSelect={ pickDesign } />
 				) }

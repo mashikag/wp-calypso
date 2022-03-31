@@ -2,7 +2,6 @@ import { isEnabled } from '@automattic/calypso-config';
 import { planHasFeature, FEATURE_PREMIUM_THEMES } from '@automattic/calypso-products';
 import { Button } from '@automattic/components';
 import DesignPicker, {
-	FeaturedPicksButtons,
 	PremiumBadge,
 	useCategorization,
 	isBlankCanvasDesign,
@@ -154,16 +153,6 @@ const designSetup: Step = function DesignSetup( { navigation } ) {
 	};
 	const categorization = useCategorization( designs, getCategorizationOptionsForStep() );
 
-	function renderCategoriesFooter() {
-		return (
-			<>
-				{ useFeaturedPicksButtons && (
-					<FeaturedPicksButtons designs={ featuredPicksDesigns } onSelect={ pickDesign } />
-				) }
-			</>
-		);
-	}
-
 	function pickDesign( _selectedDesign: Design | undefined = selectedDesign ) {
 		setSelectedDesign( _selectedDesign );
 		if ( siteSlug && _selectedDesign ) {
@@ -301,7 +290,6 @@ const designSetup: Step = function DesignSetup( { navigation } ) {
 						align="left"
 					/>
 				}
-				categoriesFooter={ renderCategoriesFooter() }
 				// disable premium themes for now, because we can't access checkout
 				isPremiumThemeAvailable={ false }
 			/>
