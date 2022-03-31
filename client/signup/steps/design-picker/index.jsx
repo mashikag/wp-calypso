@@ -5,7 +5,7 @@ import DesignPicker, {
 	FeaturedPicksButtons,
 	PremiumBadge,
 	isBlankCanvasDesign,
-	getDesignUrl,
+	getDesignPreviewUrl,
 	useCategorization,
 	useThemeDesignsQuery,
 } from '@automattic/design-picker';
@@ -284,8 +284,8 @@ export default function DesignPickerStep( props ) {
 			hideExternalPreview,
 		} = props;
 
-		const previewUrl = getDesignUrl( selectedDesign, translate.localeSlug, {
-			iframe: true,
+		const previewUrl = getDesignPreviewUrl( selectedDesign, {
+			language: translate.localeSlug,
 			// If the user fills out the site title with write intent, we show it on the design preview
 			// Otherwise, use the title of selected design directly
 			site_title: intent === 'write' && siteTitle ? siteTitle : selectedDesign?.title,
